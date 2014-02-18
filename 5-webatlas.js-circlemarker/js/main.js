@@ -1,0 +1,118 @@
+//vi gjør "map" tilgjengelig i console
+var map;
+
+$(document).ready(function() {
+    //starter kartmotoren og putter det i div med id="map"
+    map = new WebatlasMap('map');
+
+    //endrer senterpunkt til koordinatene og setter zoomnivå til 5
+    map.setView(new L.LatLng(64.0107043, 11.4901134), 5);
+
+    //definerer flere WMS'er og legger de til i "layer-control"
+    var wmsbaerum = new L.TileLayer.WMS("http://clusterb.gisline.no/wms-baerum/?", {
+        layers: 'RPL',
+        format: 'image/png'
+    });
+    //legger til WMS'en i layer-control
+    map.LayerControl.addOverlay(wmsbaerum, 'Bærum RPL');
+
+    var wmsalta = new L.TileLayer.WMS("http://www.gisline.no/wms-alta/?", {
+        layers: 'EIENDOMSKART',
+        format: 'image/png'
+    });
+    map.LayerControl.addOverlay(wmsalta, 'Alta Eiendom');
+
+
+    //lag en ny markør og legg til kartet
+    var marker = L.marker([64.0107043, 11.4901134]);
+
+    //legg markøren til som eget lag i "layer control"
+    map.LayerControl.addOverlay(marker, 'marker');
+
+    //Knytt en popup til markøren ved klikk.
+    marker.bindPopup("Her kan det være <bold>HTML</bold>");
+
+    
+
+    //Lag en ny sirkel med radius og legg til kartet - merk at radius _ikke_ er geografisk
+    var circle500 = L.circle([64.0107043, 11.4901134], 500, {
+        color: 'green',
+        fillColor: '#00FF00',
+        fillOpacity: 0.5
+    });
+
+    //legg sirkelen til som eget lag i "layer control"
+    map.LayerControl.addOverlay(circle500, 'circle500');
+
+    //knytt en hendelse til sirkelen når den blir klikket på
+    circle500.on("click", function(evt) {
+        //dette er "callback" funksjonen. Den kjører vanligvis i et eget "scope". Leaflet ordner dette for oss. JQuery gjør vanligvis ikke det
+        console.log("callback");
+        circleMarker.setRadius(300);
+        map.removeLayer(this);
+    });
+
+    
+
+    //Lag en sirkelmarkør (forenklet sirkel) og legg til kartet
+    var circleMarker = L.circleMarker([64.0107043, 11.4901134], {
+        color: 'red',
+        fillColor: '#FF0000',
+        fillOpacity: 0.5
+    });
+
+    //legg sirkelmarkøren til som eget lag i "layer control"
+    map.LayerControl.addOverlay(circleMarker, 'circleMarker');
+
+    //Knytt en popup med en video til sirkelmarkøren
+    circleMarker.bindPopup('<iframe width="200" height="200" src="http://www.youtube.com/embed/2JkwzHw6MxA" frameborder="0" allowfullscreen></iframe>');
+
+
+    //definer en funksjon som vi skal kalle for hver feature som leses i L.geoJson()
+    function visPopup(feature, layer) {
+        //midlertidig variabel for å bygge strengen til popup'en
+        var string = "";
+        //looper igjennom alle _egenskapene_ til JSON-objektet
+        for (var k in feature.properties) {
+            //bygger strengen basert på egenskapsnavnet (k) og verdien til egenskapen feature.properties[k]
+            string += k + " : " + feature.properties[k] + "<br>"
+        }
+        //knytter en popup til hver feature med strengen vi nettopp bygde
+        layer.bindPopup(string);
+    };
+
+    /**
+    Bedre måte å hente inn data på. Henter inn asynkront. Pass på context! (fungerer ikke for localhost)
+    $.getJSON("pubs_restaurant_norway.geojson", function(data) {
+        //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
+        var dataLayer = L.geoJson(data, {
+            onEachFeature: visPopup//vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
+        }).addTo(map);
+
+        //legg til punktene til "layer control"
+        map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
+    });    
+    */
+    
+    //Sett opp stil til de nye sirkelmarkørene
+    var geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+    
+    /*Alternativ metode for localhost og synkron lasting*/
+    //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
+    var dataLayer = L.geoJson(pubsGeoJSON, {
+        onEachFeature: visPopup, //vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
+        pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(map);
+
+    //legg til punktene til "layer control"
+    map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
+});
