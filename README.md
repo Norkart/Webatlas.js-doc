@@ -3,15 +3,15 @@ Webatlas.js-doc
 
 Demonstration of the Webatlas.js library
 
-[Course material][0]
-[Presentation][pptx]
+- [Course material (zip)][0] 
+- [Presentation][pptx]
 
-[Part 1][1]
-[Part 2][2]
-[Part 3][3]
-[Part 4][4]
-[Part 5][5]
-[Part 6][6]
+* [Part 1][1]
+* [Part 2][2]
+* [Part 3][3]
+* [Part 4][4]
+* [Part 5][5]
+* [Part 6][6]
 
 [pptx]: https://github.com/Norkart/Webatlas.js-doc/blob/gh-pages/Kursmateriell/presentasjoner/Webatlas.js-kart-pa-web.pptx?raw=true
 [0]: https://github.com/Norkart/Webatlas.js-doc/archive/gh-pages.zip
