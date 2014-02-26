@@ -120,6 +120,10 @@ $(document).ready(function() {
 
     //legg til punktene til "layer control"
     map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
+  
+    //Legg inn minimap i hjørnet
+    var WA_vector = new L.TileLayer.WA();
+    var miniMap = new L.Control.MiniMap(WA_vector, {toggleDisplay: true, autoToggleDisplay: true}).addTo(map);
 
     //start opp heatmap-motoren - vi bruker punktlisten vi lagde ovenfor og setter parametere
     var heatmapLayer = L.heatLayer(pointList, {
