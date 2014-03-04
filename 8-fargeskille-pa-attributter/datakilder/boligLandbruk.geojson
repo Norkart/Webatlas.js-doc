@@ -1,0 +1,15 @@
+var eiendomGeoJSON = {
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000028 }, "geometry": { "type": "Point", "coordinates": [ 11.676513722992144, 64.01405794829401 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Bolig ", "BYGGNR": 3000036 }, "geometry": { "type": "Point", "coordinates": [ 11.631718849690078, 64.026865821647064 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000044 }, "geometry": { "type": "Point", "coordinates": [ 11.899728239030443, 64.183420443273377 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000052 }, "geometry": { "type": "Point", "coordinates": [ 11.43841885722588, 63.913681487155735 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Landbruk", "BYGGNR": 3000060 }, "geometry": { "type": "Point", "coordinates": [ 11.424175581205747, 63.939789268177705 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Landbruk", "BYGGNR": 3000079 }, "geometry": { "type": "Point", "coordinates": [ 11.456935792558168, 63.990310854256727 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Landbruk", "BYGGNR": 3000087 }, "geometry": { "type": "Point", "coordinates": [ 11.493935013559733, 64.037395355375594 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Landbruk", "BYGGNR": 3000095 }, "geometry": { "type": "Point", "coordinates": [ 11.527979176045717, 64.003224077037331 ] } }
+]
+}
