@@ -30,7 +30,11 @@ $(document).ready(function() {
     map.LayerControl.addOverlay(marker, 'marker');
 
     //Knytt en popup til markøren ved klikk.
-    marker.bindPopup("Her kan det være <bold>HTML</bold>");
+<<<<<<< HEAD
+    marker.bindPopup("Her kan det være HTML");
+=======
+    marker.bindPopup("Her kan det være <b>HTML</b>");
+>>>>>>> FETCH_HEAD
 
     
 

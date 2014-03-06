@@ -4,7 +4,7 @@ var eiendomGeoJSON = {
                                                                                 
 "features": [
 { "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000028 }, "geometry": { "type": "Point", "coordinates": [ 11.676513722992144, 64.01405794829401 ] } },
-{ "type": "Feature", "properties": { "OBJTYPE": "Bolig ", "BYGGNR": 3000036 }, "geometry": { "type": "Point", "coordinates": [ 11.631718849690078, 64.026865821647064 ] } },
+{ "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000036 }, "geometry": { "type": "Point", "coordinates": [ 11.631718849690078, 64.026865821647064 ] } },
 { "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000044 }, "geometry": { "type": "Point", "coordinates": [ 11.899728239030443, 64.183420443273377 ] } },
 { "type": "Feature", "properties": { "OBJTYPE": "Bolig", "BYGGNR": 3000052 }, "geometry": { "type": "Point", "coordinates": [ 11.43841885722588, 63.913681487155735 ] } },
 { "type": "Feature", "properties": { "OBJTYPE": "Landbruk", "BYGGNR": 3000060 }, "geometry": { "type": "Point", "coordinates": [ 11.424175581205747, 63.939789268177705 ] } },
