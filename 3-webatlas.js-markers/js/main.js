@@ -31,7 +31,11 @@ $(document).ready(function() {
 
     //Knytt en popup til markøren ved klikk.
 <<<<<<< HEAD
+<<<<<<< HEAD
     marker.bindPopup("Her kan det være HTML");
+=======
+    marker.bindPopup("Her kan det være <b>HTML</b>");
+>>>>>>> FETCH_HEAD
 =======
     marker.bindPopup("Her kan det være <b>HTML</b>");
 >>>>>>> FETCH_HEAD
