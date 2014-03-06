@@ -30,17 +30,7 @@ $(document).ready(function() {
     map.LayerControl.addOverlay(marker, 'marker');
 
     //Knytt en popup til markøren ved klikk.
-<<<<<<< HEAD
-<<<<<<< HEAD
     marker.bindPopup("Her kan det være HTML");
-=======
-    marker.bindPopup("Her kan det være <b>HTML</b>");
->>>>>>> FETCH_HEAD
-=======
-    marker.bindPopup("Her kan det være <b>HTML</b>");
->>>>>>> FETCH_HEAD
-
-    
 
     //Lag en ny sirkel med radius og legg til kartet - merk at radius _ikke_ er geografisk
     var circle500 = L.circle([64.0107043, 11.4901134], 500, {
