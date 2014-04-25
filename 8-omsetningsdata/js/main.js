@@ -1,8 +1,3 @@
-/**
-* RASK DEMONSTRASJON PÅ HVORDAN FARGELEKKE MARKØRER I FORSKJELLIGE FARGER BASERT PÅ 
-* VERDIER I HVER FEATURE FRA GEOJSON
-* MERK: IKKE OPTIMAL LØSNING, MEN FUNGERENDE OG ENKEL FOR OPPLÆRING
-*/
 //vi gjør "map" tilgjengelig i console
 var map;
 
@@ -40,6 +35,7 @@ $(document).ready(function() {
     //liste som skal holde punktdata til bruk i heatmap og dekningskart
     var eiendomspunkter = [];
     var eiendomspunkterMedOmsetning = [];
+    var boligpunkterMedOmsetning = [];
 
     //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
     var eiendommer = L.geoJson(eiendompktGeoJSON, {
@@ -52,6 +48,16 @@ $(document).ready(function() {
                 feature.geometry.coordinates[0], 
                 feature.properties.omsetningsbelop
             ]);
+
+            //legg kun til boligomsetninger for bruk i eget heatmap
+            if(feature.properties.anv_av_grunn === "B") {
+                boligpunkterMedOmsetning.push([
+                    feature.geometry.coordinates[1], 
+                    feature.geometry.coordinates[0], 
+                    feature.properties.omsetningsbelop
+                ]);
+            }
+
             //endre stilen for dette objektet
             if(feature.properties.omsetningsbelop <= 1000000) {
                 geojsonMarkerOptions.fillColor = "#00ff00";
@@ -62,7 +68,7 @@ $(document).ready(function() {
                 geojsonMarkerOptions.fillColor = "#0000ff";
             }
             return L.circleMarker(latlng, geojsonMarkerOptions);
-        }
+        }        
     });
 
     //legg til eiendomspunktene til "layer control"
@@ -88,12 +94,22 @@ $(document).ready(function() {
             } else {
                 flateStyle.fillColor = "#0000ff";
             }
-            return flateStyle;            
+            return flateStyle;   
+        },
+        /**
+        * Filtrerer vekk alt unntatt boligomsetninger
+        */
+        filter: function(feature, layer) {
+            if(feature.properties.anv_av_grunn === "B") {
+                return true;
+            } else {
+                return false;
+            }
         }
     }).addTo(map);
 
     //legg til eiendomspunktene til "layer control"
-    map.LayerControl.addOverlay(eiendommerPolygon, "Eiendommer (f)");    
+    map.LayerControl.addOverlay(eiendommerPolygon, "boligomsetninger (f)");    
 
 /** Mer avanserte visualiseringer av datasettene */
 
@@ -102,9 +118,16 @@ $(document).ready(function() {
         radius: 60,
         max: 0.8
     });
-
     //Legg til heatmap til layer control
     map.LayerControl.addOverlay(heatmapLayer, "Heatmap");
+
+    //heatmap for kun boligomsetninger
+    var heatmapLayer = L.heatLayer(boligpunkterMedOmsetning, {
+        radius: 50,
+        max: 0.5
+    });
+    //Legg til heatmap til layer control
+    map.LayerControl.addOverlay(heatmapLayer, "Heatmap kun bolig");
 
     //start opp maskeringsmotoren og sett nødvendige parametere
     var coverageLayer = new L.TileLayer.MaskCanvas({
