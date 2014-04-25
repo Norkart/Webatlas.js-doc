@@ -75,6 +75,46 @@ $(document).ready(function() {
     map.LayerControl.addOverlay(eiendommer, "Eiendommer (p)");
 
     //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
+    var grunnkretsPolygon = L.geoJson(grunnkretsmedomsetningGeojson, {
+        onEachFeature: function(feature, latlng) {
+            visPopup(feature,latlng);
+        },
+        style: function(feature) {
+            var flateStyle = {
+                fillColor: "#ffffff",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            };
+            /**
+            * OBS! Ikke den "riktige" måten å gjøre det på. Koropletkart (fargekart) må egentlig fargelegges relativt til areal (per km2 og lignende).
+            * Visualisering kan bli feil, siden store arealer med lyse farger kan være mer fremtredende enn små arealer med sterke farger.
+            */
+            var colors = ['rgb(255,255,212)','rgb(254,217,142)','rgb(254,153,41)','rgb(217,95,14)','rgb(153,52,4)'];
+            if(feature.properties.totalomsetningsbelop <= 5510000) {
+                flateStyle.fillColor = colors[0];
+            } else if (feature.properties.totalomsetningsbelop > 5510000 && feature.properties.totalomsetningsbelop <= 13800000) {                
+                flateStyle.fillColor = colors[1];
+            } else if (feature.properties.totalomsetningsbelop > 13800000 && feature.properties.totalomsetningsbelop <= 22670000) {
+                flateStyle.fillColor = colors[2];
+            } else if (feature.properties.totalomsetningsbelop > 22670000 && feature.properties.totalomsetningsbelop <= 43170000) {                
+                flateStyle.fillColor = colors[3];
+            } else if (feature.properties.totalomsetningsbelop > 43170000 && feature.properties.totalomsetningsbelop <= 21474836247) {                
+                flateStyle.fillColor = colors[4];
+            } else {
+                flateStyle.fillColor = "#ffffff";
+                //weight: 0;
+                //fillOpacity: 0;
+                //opacity: 0;
+            }
+            return flateStyle;   
+        }
+    }).addTo(map);
+    //legg til eiendomspunktene til "layer control"
+    map.LayerControl.addOverlay(grunnkretsPolygon, "Grunnkrets (f)");
+
+    //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
     var eiendommerPolygon = L.geoJson(eiendompolygonGeoJSON, {
         onEachFeature: function(feature, latlng) {
             visPopup(feature,latlng);
@@ -107,9 +147,8 @@ $(document).ready(function() {
             }
         }
     }).addTo(map);
-
     //legg til eiendomspunktene til "layer control"
-    map.LayerControl.addOverlay(eiendommerPolygon, "boligomsetninger (f)");    
+    map.LayerControl.addOverlay(eiendommerPolygon, "boligomsetninger (f)");
 
 /** Mer avanserte visualiseringer av datasettene */
 
