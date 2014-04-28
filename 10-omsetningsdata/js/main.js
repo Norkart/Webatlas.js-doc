@@ -3,7 +3,8 @@ var map;
 
 $(document).ready(function() {
     //starter kartmotoren og putter det i div med id="map"
-    map = new WebatlasMap('map');
+    map = new WebatlasMap('map', {customer: 'NXTMedia_hackathon'});
+
 
     //endrer senterpunkt til koordinatene og setter zoomnivå til 9
     map.setView(new L.LatLng(63.5107043, 10.4901134), 9)

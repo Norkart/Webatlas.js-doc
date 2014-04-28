@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="css/fullscreen.css" />
 
         <!-- Leaflet, Norkart edition -->
-        <link rel="stylesheet" href="http://tsadm.webatlas.no/sh/3/v/020114/webatlas.css" />
+        <link rel="stylesheet" href="http://tsadm.webatlas.no/sh/3/v/130314/webatlas.css" />
 
         <!-- CSS for MarkerCluster -->
         <link rel="stylesheet" href="css/leaflet.markercluster/MarkerCluster.Default.css" />
@@ -37,25 +37,19 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
 <!-- datafilen - HUSK AT DISSE LASTES SYNKRONT MED SIDEN --> 
-        <script src="datakilder/omsetningsdata_punkt_trondheim.geojson" type="text/javascript"></script>
-        <script src="datakilder/omsetningsdata_polygon_trondheim.geojson" type="text/javascript"></script>
-        <script src="datakilder/omsetningsdata_grunnkrets_trondheim.geojson" type="text/javascript"></script>
+        <script src="datakilder/kommuner_simple0.01.geojson" type="text/javascript"></script>
+        
+        <script src="datakilder/fylker_simple0.001.geojson" type="text/javascript"></script>
+        <!-- 
+        mer nøyaktig, men større (2mb) 
+        <script src="datakilder/kommuner_simple0.001.geojson" type="text/javascript"></script>-->
 
         <!-- forbedrer ytelsen -->
         <script>L_PREFER_CANVAS = true;</script>
         <!-- hent inn Webatlas.js-biblioteket -->
-        <script src="http://tsadm.webatlas.no/sh/3/v/020114/webatlas.js" type="text/javascript"></script>
+        <script src="http://tsadm.webatlas.no/sh/3/v/130314/webatlas.js" type="text/javascript"></script>
 
-        <!-- MarkerCluster.js -->
-        <script src="js/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
-        
-        <!-- MaskCanvas.js -->
-        <script src="js/vendor/leaflet.maskcanvas/QuadTree.js"></script>
-        <script src="js/vendor/leaflet.maskcanvas/L.TileLayer.MaskCanvas.js"></script>
-
-        <!-- Leaflet.Heat.js -->
-        <script type="text/javascript" src="js/vendor/leaflet.heat/leaflet-heat.js"></script>
-
+        <script src="js/vendor/colorbrewer.js"></script>
 
         <script src="js/main.js"></script>
     </body>
