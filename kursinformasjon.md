@@ -22,14 +22,18 @@ Ingen forkunnskaper kreves, men det kan være en fordel å ikke ha «programmeri
 
 Videregående kurs i Webatlas.js
 ===============================
-* Bruke eksterne webtjenester
- * WFS
- * REST
- * Avansert WMS
- * GFI
-* Avansert styling
-* Visualisere kartdata på ulike måter
-* Dynamisk visualisering basert på verdier i kartet
+
+Lokasjon og kart på web og mobil har de siste årene vært blant de største trendene innenfor teknologi. Norkart inviterer til kurs i bruken av WEBATLAS.js. WEBATLAS.js bygger på Leaflet.js som er et av de raskest voksende biblioteker for å implementere interaktive kart på både web og mobil. Leaflet.js er et kraftig bibliotek, men kommer først til sin rett når man har interessante data å vise og utnytter de mange visualiseringsmetodene som finnes. WEBATLAS.js gir deg tilgang til en del kartlag, men vi vil i dette kurset også dra inn data fra eksterne tjenester og vise hvordan desse kan kombineres til å lage spennende webkartløsninger. 
+
+På kurset vil du:
+* Lære å ta inn data fra eksterne webtjenester:
+	* WFS 
+	* WMS
+	* RESTful API-er
+* GFI
+* Event handtering
+* Avansert visualisering av vektor
+* Avansert WMS-konfigurering
 * Temakart
 
-* Walkthroughs, lite presentasjoner, praktisk rettet. Må kunne noe programmering. 
+Kurset passer godt for deg som allerede kjenner til Leaflet.js og litt javascript-kode. Kurset vil inneholde en kort introduksjonsdel om de ulike teknologiene, men hovudfokuset vil ligge på praktiske programmeringsoppgaver.
