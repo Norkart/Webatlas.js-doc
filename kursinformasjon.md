@@ -30,10 +30,10 @@ På kurset vil du:
 	* WFS 
 	* WMS
 	* RESTful API-er
-* GFI
-* Event handtering
-* Avansert visualisering av vektor
+* GetFeatureInfo (GFI)
+* Event håndtering
+* Avansert visualisering av vektordata
 * Avansert WMS-konfigurering
-* Temakart
+* Ulike typer tematiske visualiseringsteknikker
 
-Kurset passer godt for deg som allerede kjenner til Leaflet.js og litt javascript-kode. Kurset vil inneholde en kort introduksjonsdel om de ulike teknologiene, men hovudfokuset vil ligge på praktiske programmeringsoppgaver.
+Kurset passer godt for deg som allerede kjenner til Leaflet.js/Webatlas.js og litt javascript-kode. Kurset vil inneholde en kort introduksjonsdel om de ulike teknologiene, men hovedfokuset vil ligge på praktiske programmeringsoppgaver.
