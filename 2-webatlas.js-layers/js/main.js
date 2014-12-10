@@ -16,10 +16,11 @@ $(document).ready(function() {
     //legger til WMS'en i layer-control
     map.LayerControl.addOverlay(wmsbaerum, 'Bærum RPL');
 
-    var wmsalta = new L.TileLayer.WMS("http://www.gisline.no/wms-alta/?", {
-        layers: 'EIENDOMSKART',
+    var wmsalta = new L.TileLayer.WMS("http://www.webatlas.no/omsetningswms/9bd6842b4912b6d58b58648569ff137/", {
+        layers: 'siste_omsetninger',
+        transparent: true,
         format: 'image/png'
     });
-    map.LayerControl.addOverlay(wmsalta, 'Alta Eiendom');
+    map.LayerControl.addOverlay(wmsalta, 'Trondheim omsetninger');
 
 });

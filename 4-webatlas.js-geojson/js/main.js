@@ -83,7 +83,8 @@ $(document).ready(function() {
 
     /**
     Bedre måte å hente inn data på. Henter inn asynkront. Pass på context! (fungerer ikke for localhost)
-    $.getJSON("pubs_restaurant_norway.geojson", function(data) {
+    */
+    $.getJSON("datakilder/pubs_restaurant_norway.geojson", function(data) {
         //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
         var dataLayer = L.geoJson(data, {
             onEachFeature: visPopup//vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
@@ -92,14 +93,15 @@ $(document).ready(function() {
         //legg til punktene til "layer control"
         map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
     });    
-    */
     
-    /*Alternativ metode for localhost og synkron lasting*/
+    
+    /*Alternativ metode for localhost og synkron lasting*
     //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
     var dataLayer = L.geoJson(pubsGeoJSON, {
         onEachFeature: visPopup//vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
     }).addTo(map);
+*/ 
 
     //legg til punktene til "layer control"
-    map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
+    //map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
 });

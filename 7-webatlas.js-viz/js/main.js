@@ -3,7 +3,9 @@ var map;
 
 $(document).ready(function() {
     //starter kartmotoren og putter det i div med id="map"
-    map = new WebatlasMap('map', {customer: 'WA_JS_V3_Coursework'});
+    map = new WebatlasMap('map', {
+        customer: 'WA_JS_V3_Coursework'
+    });
 
     //endrer senterpunkt til koordinatene og setter zoomnivå til 5
     map.setView(new L.LatLng(64.0107043, 11.4901134), 5);
@@ -32,7 +34,7 @@ $(document).ready(function() {
     //Knytt en popup til markøren ved klikk.
     marker.bindPopup("Her kan det være <b>HTML</b>");
 
-    
+
 
     //Lag en ny sirkel med radius og legg til kartet - merk at radius _ikke_ er geografisk
     var circle500 = L.circle([64.0107043, 11.4901134], 500, {
@@ -52,7 +54,7 @@ $(document).ready(function() {
         map.removeLayer(this);
     });
 
-    
+
 
     //Lag en sirkelmarkør (forenklet sirkel) og legg til kartet
     var circleMarker = L.circleMarker([64.0107043, 11.4901134], {
@@ -88,17 +90,50 @@ $(document).ready(function() {
 
     /**
     Bedre måte å hente inn data på. Henter inn asynkront. Pass på context! (fungerer ikke for localhost)
-    $.getJSON("pubs_restaurant_norway.geojson", function(data) {
+    */
+    var dataLayer;
+    $.getJSON("datakilder/pubs_restaurant_norway.geojson", function(data) {
         //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
-        var dataLayer = L.geoJson(data, {
-            onEachFeature: visPopup//vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
+        dataLayer = L.geoJson(data, {
+            onEachFeature: visPopup, //vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, geojsonMarkerOptions);
+            }
         }).addTo(map);
-
         //legg til punktene til "layer control"
         map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
-    });    
-    */
-    
+
+        //start opp heatmap-motoren - vi bruker punktlisten vi lagde ovenfor og setter parametere
+        var heatmapLayer = L.heatLayer(pointList, {
+            radius: 80
+        });
+
+        //Legg til heatmap til layer control
+        map.LayerControl.addOverlay(heatmapLayer, "Heatmap");
+
+        //start opp maskeringsmotoren og sett nødvendige parametere
+        var coverageLayer = new L.TileLayer.MaskCanvas({
+            'opacity': 0.8,
+            radius: 500,
+            useAbsoluteRadius: true,
+            'attribution': ''
+        });
+
+        //knytt punktlisten vår til maskeringsmotoren
+        coverageLayer.setData(pointList);
+        //legg til maskering som eget lag i layer control
+        map.LayerControl.addOverlay(coverageLayer, "Dekning");
+
+        //start clustermotoren
+        var markers = new L.MarkerClusterGroup();
+
+        //legg til eiendommer-laget til clustermotoren og legg til kartet
+        markers.addLayer(dataLayer);//.addTo(map);
+        //legg også til som eget lag i layer control
+        map.LayerControl.addOverlay(markers, "Datalag (cluster)");
+    });
+
+
     //Sett opp stil til de nye sirkelmarkørene
     var geojsonMarkerOptions = {
         radius: 8,
@@ -108,8 +143,8 @@ $(document).ready(function() {
         opacity: 1,
         fillOpacity: 0.8
     };
-    
-    /*Alternativ metode for localhost og synkron lasting*/
+
+    /*Alternativ metode for localhost og synkron lasting*
     //Start "geoJson"-motoren til Leaflet. Den tar inn et JSON-objekt i en variabel. Denne har vi definert i JSON-filen i index.html
     var dataLayer = L.geoJson(pubsGeoJSON, {
         onEachFeature: visPopup, //vi refererer til funksjonen vi skal kalle. Husk at funksjonen også er et objekt
@@ -117,41 +152,15 @@ $(document).ready(function() {
             return L.circleMarker(latlng, geojsonMarkerOptions);
         }
     });
+    */
 
     //legg til punktene til "layer control"
-    map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
-  
+    //map.LayerControl.addOverlay(dataLayer, "Datalag (geojson)");
+
     //Legg inn minimap i hjørnet
     var WA_vector = new L.TileLayer.WA();
-    var miniMap = new L.Control.MiniMap(WA_vector, {toggleDisplay: true, autoToggleDisplay: true}).addTo(map);
-
-    //start opp heatmap-motoren - vi bruker punktlisten vi lagde ovenfor og setter parametere
-    var heatmapLayer = L.heatLayer(pointList, {
-        radius: 80
-    });
-
-    //Legg til heatmap til layer control
-    map.LayerControl.addOverlay(heatmapLayer, "Heatmap");
-
-    //start opp maskeringsmotoren og sett nødvendige parametere
-    var coverageLayer = new L.TileLayer.MaskCanvas({
-        'opacity': 0.8,
-        radius: 500,
-        useAbsoluteRadius: true,
-        'attribution': ''
-    });
-
-    //knytt punktlisten vår til maskeringsmotoren
-    coverageLayer.setData(pointList);
-    //legg til maskering som eget lag i layer control
-    map.LayerControl.addOverlay(coverageLayer, "Dekning");
-
-    //start clustermotoren
-    var markers = new L.MarkerClusterGroup();
-
-    //legg til eiendommer-laget til clustermotoren og legg til kartet
-    markers.addLayer(dataLayer).addTo(map);
-    //legg også til som eget lag i layer control
-    map.LayerControl.addOverlay(markers, "Datalag (cluster)");    
-
+    var miniMap = new L.Control.MiniMap(WA_vector, {
+        toggleDisplay: true,
+        autoToggleDisplay: true
+    }).addTo(map);
 });
